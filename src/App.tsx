@@ -105,6 +105,13 @@ const App = () => {
     setCart(prev => prev.filter(i => !(i.id === productId && i.selectedUnit === unit)));
   };
 
+  const updateCartItemPrice = (productId: number, unit: string, newPrice: number) => {
+    setCart(prev => prev.map(i => i.id === productId && i.selectedUnit === unit 
+      ? { ...i, price: newPrice } 
+      : i
+    ));
+  };
+
   const getCartTotal = () => {
     const subtotal = cart.reduce((s, i) => {
       const factor = ['g', 'ml'].includes(i.selectedUnit) ? i.quantity / 1000 : i.quantity;
@@ -249,9 +256,20 @@ const App = () => {
             <div key={`${item.id}-${item.selectedUnit}`} className="bg-slate-50 dark:bg-slate-900 p-8 rounded-[40px] border-4 border-slate-100 dark:border-slate-800 flex justify-between items-center">
               <div className="space-y-2">
                 <h4 className="font-black text-2xl uppercase text-slate-900 dark:text-white">{item.name}</h4>
-                <div className="flex items-center gap-2">
-                  <p className="text-3xl font-black text-indigo-600 tracking-tighter">LKR {(item.price * (['g', 'ml'].includes(item.selectedUnit) ? item.quantity / 1000 : item.quantity)).toFixed(0)}</p>
-                  <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">({item.quantity} {item.selectedUnit})</p>
+                <div className="flex flex-col">
+                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Unit Price (Edit)</p>
+                   <div className="flex items-center gap-2">
+                     <span className="text-xl font-black text-indigo-600">LKR</span>
+                     <input 
+                      type="number" 
+                      value={item.price} 
+                      onChange={e => updateCartItemPrice(item.id!, item.selectedUnit, Number(e.target.value))}
+                      className="w-24 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl px-3 py-1 font-black text-xl text-indigo-600 focus:outline-none focus:border-indigo-500"
+                    />
+                   </div>
+                   <p className="text-xs font-black text-slate-400 uppercase tracking-widest mt-2">
+                      Subtotal: LKR {(item.price * (['g', 'ml'].includes(item.selectedUnit) ? item.quantity / 1000 : item.quantity)).toFixed(0)}
+                   </p>
                 </div>
               </div>
               <button onClick={() => removeFromCart(item.id!, item.selectedUnit)} className="w-16 h-16 bg-red-50 dark:bg-red-900/20 text-red-500 rounded-3xl flex items-center justify-center active:scale-90 border-2 border-red-100 dark:border-red-800"><Trash2 size={24} /></button>

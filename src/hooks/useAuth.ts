@@ -25,7 +25,7 @@ export const useAuth = () => {
     setAuthError('');
     setIsAuthLoading(true);
     const { phone, password, shopName } = payload;
-    const loginId = phone.includes('@') ? phone : `${phone}@mobile-shop.com`;
+    const loginId = phone.includes('@') ? phone : `u.${phone.replace(/\s+/g, '')}@pos-mail.com`;
 
     try {
       if (mode === 'login') {
