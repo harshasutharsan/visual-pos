@@ -14,8 +14,9 @@
 
 @layer base {
   body {
-    @apply antialiased text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-[#020617] font-['Inter'];
+    @apply antialiased text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-[#020617] font-['Outfit'] overflow-x-hidden select-none;
     -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 }
 

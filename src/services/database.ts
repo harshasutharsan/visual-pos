@@ -1,19 +1,21 @@
 import Dexie, { type Table } from 'dexie';
-import { Product, Transaction, Customer, Category } from '../types';
+import { Product, Transaction, Customer, Category, Merchant } from '../types/index';
 
 export class POSDatabase extends Dexie {
   products!: Table<Product>;
   transactions!: Table<Transaction>;
   customers!: Table<Customer>;
   categories!: Table<Category>;
+  merchants!: Table<Merchant>;
 
   constructor() {
     super('POSDatabase');
-    this.version(7).stores({
+    this.version(8).stores({
       products: '++id, name, category, userId, synced, updatedAt',
       transactions: '++id, timestamp, userId, synced',
       customers: '++id, phone, userId, synced',
-      categories: '++id, name, userId, synced'
+      categories: '++id, name, userId, synced',
+      merchants: 'id'
     });
   }
 }
@@ -77,7 +79,7 @@ export const seedDatabase = async (userId?: string) => {
         userId, synced: 0 
       }
     ];
-    await db.products.bulkAdd(products);
+    await db.products.bulkAdd(products as Product[]);
   }
 
   const custCount = await db.customers.count();
