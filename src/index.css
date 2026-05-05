@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-primary: #4f46e5;
+  --brand-success: #059669;
+  --brand-warning: #d97706;
+  --bg-dark: #020617;
+  --card-solid: #0f172a;
+}
+
+@layer base {
+  body {
+    @apply antialiased text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-[#020617] font-['Inter'];
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  /* HYBRID GLASS: Less blur, more solid for readability */
+  .glass {
+    @apply bg-white dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/50 dark:border-slate-800/50;
+  }
+  
+  .card-solid {
+    @apply bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800/80 shadow-md transition-all duration-150;
+  }
+
+  .btn-primary {
+    @apply h-16 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-[28px] shadow-xl shadow-indigo-500/30 flex items-center justify-center gap-3 transition-all active:scale-95 disabled:opacity-50 disabled:active:scale-100 border-0;
+  }
+
+  .btn-success {
+    @apply h-16 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-[28px] shadow-xl shadow-emerald-500/30 flex items-center justify-center gap-3 transition-all active:scale-95 border-0;
+  }
+
+  /* TACTILE DOCK: Solid background for zero visual noise */
+  .nav-bottom {
+    @apply fixed bottom-6 left-6 right-6 h-20 bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-md rounded-[32px] flex items-center justify-between px-6 z-[100] shadow-2xl border border-white/5;
+  }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* FAST TRANSITIONS */
+.transition-fast {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
